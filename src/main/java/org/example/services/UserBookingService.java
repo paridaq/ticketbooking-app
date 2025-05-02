@@ -3,12 +3,15 @@ package org.example.services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.entities.User;
+import org.example.util.UserServiceUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
+
+import static jdk.internal.org.jline.utils.InfoCmp.Capability.user1;
 
 public class UserBookingService {
     private User user;
@@ -25,10 +28,11 @@ public class UserBookingService {
     }
 
     public Boolean loginUser(){
-        Optional<User> foundUser = userList.stream().filter(user->{
-            return useer1.getName().equals(user.getName()) && UserSe
-        })
-    };
+        Optional<User> foundUser = userList.stream().filter(user1 -> {
+            return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
+        }).findFirst();
+        return foundUser.isPresent();
+    }
 
 
 }
